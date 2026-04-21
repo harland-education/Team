@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Harland Claude Team Programme — April 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harland Claude Team Program · April 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -17,122 +17,370 @@
     --cream: #F8F5EF;
     --white: #FFFFFF;
     --border: #ECEAE3;
+    --bg: #F2EFE8;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
 
   body {
-    background: #E4E0D8;
+    background: var(--bg);
     font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══════════════════════════════════════════
+     APP SHELL
+     ═══════════════════════════════════════════ */
+
+  .app {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: 64px 1fr;
+    grid-template-areas:
+      "topbar topbar"
+      "sidebar main";
+    min-height: 100vh;
+  }
+
+  @media (max-width: 1024px) {
+    .app {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "topbar"
+        "main";
+    }
+  }
+
+  /* ─── Top bar ─── */
+  .topbar {
+    grid-area: topbar;
+    background: var(--obsidian);
     display: flex;
-    justify-content: center;
-    padding: 0 0 60px 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    position: relative;
   }
 
-  .phone {
-    width: 100%;
-    max-width: 430px;
-    background: var(--cream);
-    min-height: 100vh;
-  }
-
-  /* Gold strip */
-  .gold-strip {
-    height: 3px;
+  .topbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
     background: linear-gradient(90deg, #7A5010, var(--gold) 30%, #F0D878 50%, var(--gold) 70%, #7A5010);
   }
 
-  /* Hero */
-  .hero {
-    background:
-      radial-gradient(ellipse at 85% 12%, rgba(201,168,76,0.28) 0%, transparent 55%),
-      radial-gradient(ellipse at 8% 88%, rgba(120,60,10,0.4) 0%, transparent 50%),
-      linear-gradient(155deg, #1C1208 0%, #3A2208 45%, #1E1208 100%);
-    padding: 36px 24px 40px;
-    position: relative;
-    overflow: hidden;
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
   }
 
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-      0deg, transparent, transparent 2px,
-      rgba(255,255,255,0.006) 2px, rgba(255,255,255,0.006) 4px
-    );
-    pointer-events: none;
-  }
-
-  .hero-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9px;
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(201,168,76,0.7);
-    margin-bottom: 14px;
-  }
-
-  .hero-title {
+  .brand-mark {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 34px;
+    font-size: 20px;
     font-weight: 500;
-    color: var(--cream);
-    line-height: 1.15;
-    margin-bottom: 8px;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
   }
 
-  .hero-title span {
-    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #FFF8E0 50%, var(--gold-light) 60%, var(--gold) 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 3s linear infinite;
+  .brand-divider {
+    width: 1px;
+    height: 18px;
+    background: rgba(201,168,76,0.25);
   }
 
-  @keyframes shimmer {
-    0% { background-position: -100% center; }
-    100% { background-position: 200% center; }
-  }
-
-  .hero-date {
+  .brand-program {
     font-family: 'DM Sans', sans-serif;
     font-size: 12px;
-    color: rgba(255,255,255,0.45);
-    margin-top: 10px;
+    color: rgba(248,245,239,0.65);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .topbar-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 11px;
+    color: rgba(248,245,239,0.45);
     letter-spacing: 0.05em;
   }
 
-  /* Body sections */
-  .section { padding: 28px 20px; }
-  .section + .section { padding-top: 0; }
-
-  .section-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9px;
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--mist);
-    margin-bottom: 14px;
+  .live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(126,200,160,0.9);
   }
 
-  /* Principal's address */
-  .address-card {
-    background:
-      radial-gradient(ellipse at 85% 12%, rgba(201,168,76,0.18) 0%, transparent 50%),
-      radial-gradient(ellipse at 8% 90%, rgba(120,80,10,0.18) 0%, transparent 50%),
-      linear-gradient(150deg, #0C0804 0%, #1C1408 40%, #100C06 100%);
-    border: 1px solid rgba(201,168,76,0.25);
-    border-radius: 18px;
-    padding: 26px 22px 28px;
-    position: relative;
+  .live-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #7EC8A0;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.5); }
+  }
+
+  /* ─── Sidebar ─── */
+  .sidebar {
+    grid-area: sidebar;
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    padding: 32px 0;
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
+
+  @media (max-width: 1024px) {
+    .sidebar { display: none; }
+  }
+
+  .nav-section {
+    margin-bottom: 28px;
+  }
+
+  .nav-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    padding: 0 28px 10px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 28px 9px 24px;
+    font-size: 13px;
+    color: var(--slate);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+  }
+
+  .nav-item:hover {
+    color: var(--ink);
+    background: rgba(201,168,76,0.04);
+  }
+
+  .nav-item.active {
+    color: var(--ink);
+    border-left-color: var(--gold);
+    background: rgba(201,168,76,0.06);
+    font-weight: 500;
+  }
+
+  .nav-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--mist);
+    font-style: italic;
+    width: 18px;
+    flex-shrink: 0;
+  }
+
+  .nav-item.active .nav-number { color: var(--gold); }
+
+  .nav-progress {
+    margin: 24px 28px 0;
+    padding: 14px 16px;
+    background: var(--cream);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .nav-progress-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 8px;
+  }
+
+  .nav-progress-week {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .nav-progress-desc {
+    font-size: 11px;
+    color: var(--slate);
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .nav-progress-bar {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
     overflow: hidden;
   }
 
-  .address-card::before {
+  .nav-progress-fill {
+    height: 100%;
+    width: 20%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* ─── Main content ─── */
+  .main {
+    grid-area: main;
+    padding: 48px 64px 80px;
+    max-width: 1040px;
+  }
+
+  @media (max-width: 1280px) {
+    .main { padding: 40px 48px 80px; }
+  }
+
+  @media (max-width: 1024px) {
+    .main { padding: 32px 32px 60px; max-width: 100%; }
+  }
+
+  @media (max-width: 640px) {
+    .main { padding: 24px 20px 60px; }
+  }
+
+  /* ═══════════════════════════════════════════
+     TYPOGRAPHY
+     ═══════════════════════════════════════════ */
+
+  .section {
+    margin-bottom: 64px;
+    scroll-margin-top: 88px;
+  }
+
+  .section-anchor {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 72px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  h1 .accent {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 40%, #F0D878 50%, var(--gold-light) 60%, var(--gold) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 5s linear infinite;
+    font-style: italic;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--slate);
+    margin-bottom: 14px;
+  }
+
+  .intro-meta {
+    font-size: 14px;
+    color: var(--mist);
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+  }
+
+  .divider-line {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  /* ═══════════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════════ */
+
+  .hero {
+    padding: 24px 0 16px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════
+     PRINCIPAL ADDRESS
+     ═══════════════════════════════════════════ */
+
+  .address {
+    background: radial-gradient(ellipse at 85% 10%, rgba(201,168,76,0.18) 0%, transparent 55%),
+                radial-gradient(ellipse at 8% 95%, rgba(120,60,10,0.28) 0%, transparent 50%),
+                linear-gradient(155deg, #14100A 0%, #2A1C0C 45%, #16100A 100%);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 18px;
+    padding: 44px 48px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  .address::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -140,321 +388,93 @@
     background: linear-gradient(90deg, #7A5010, var(--gold) 30%, #F0D878 50%, var(--gold) 70%, #7A5010);
   }
 
+  .address-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.55);
+    margin-bottom: 18px;
+  }
+
   .address-greeting {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    font-weight: 400;
-    color: rgba(201,168,76,0.8);
-    margin-bottom: 14px;
+    font-size: 16px;
+    color: rgba(232,201,122,0.75);
     font-style: italic;
-    letter-spacing: 0.03em;
+    margin-bottom: 22px;
   }
 
-  .address-body {
+  .address p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 17px;
+    font-size: 20px;
+    line-height: 1.65;
+    color: rgba(248,245,239,0.85);
     font-weight: 400;
-    color: rgba(248,245,239,0.88);
-    line-height: 1.75;
+    margin-bottom: 20px;
   }
-
-  .address-body p + p { margin-top: 14px; }
 
   .address-sig {
-    margin-top: 24px;
-    padding-top: 18px;
-    border-top: 1px solid rgba(201,168,76,0.2);
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(201,168,76,0.15);
   }
 
-  .address-sig-name {
+  .address-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 17px;
     color: var(--gold-light);
+    font-weight: 500;
+    margin-bottom: 4px;
   }
 
-  .address-sig-title {
-    font-family: 'DM Sans', sans-serif;
+  .address-role {
     font-size: 11px;
-    color: rgba(255,255,255,0.4);
-    margin-top: 3px;
-    letter-spacing: 0.04em;
+    color: rgba(248,245,239,0.35);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  /* White info cards */
+  /* ═══════════════════════════════════════════
+     CARD GRID
+     ═══════════════════════════════════════════ */
+
+  .card-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 860px) {
+    .card-row { grid-template-columns: 1fr; }
+  }
+
   .card {
     background: var(--white);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
+    border-radius: 14px;
+    padding: 26px 28px;
   }
 
-  .card + .card { margin-top: 10px; }
-
-  .card-header {
-    padding: 16px 18px 14px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .card-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--obsidian);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .card-avatar span {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 14px;
+  .card-eyebrow {
+    font-size: 10px;
     font-weight: 500;
-    color: var(--gold-light);
-  }
-
-  .card-header-name {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink);
-  }
-
-  .card-header-role {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    color: var(--mist);
-    margin-top: 2px;
-  }
-
-  .card-body { padding: 16px 18px; }
-
-  .card-project-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--mist);
-    margin-bottom: 5px;
-  }
-
-  .card-project-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--ink);
+    color: var(--gold);
     margin-bottom: 10px;
   }
 
-  .card-project-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    color: var(--slate);
-    line-height: 1.6;
-    margin-bottom: 14px;
-  }
-
-  .card-meta-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .card-pill {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 10px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    background: var(--gold-pale);
-    color: #7A5810;
-    border: 1px solid rgba(201,168,76,0.2);
-  }
-
-  .card-pill.dark {
-    background: var(--obsidian);
-    color: var(--gold-light);
-    border-color: rgba(201,168,76,0.3);
-  }
-
-  .card-divider {
-    height: 1px;
-    background: var(--border);
-    margin: 14px 0;
-  }
-
-  .card-critique {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .critique-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--mist);
-    flex-shrink: 0;
-  }
-
-  .critique-name {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    color: var(--slate);
-  }
-
-  /* Week timeline */
-  .timeline { padding: 0 20px 28px; }
-
-  .timeline-week {
-    display: flex;
-    gap: 14px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-  }
-
-  .timeline-week:last-child { border-bottom: none; }
-
-  .week-number {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--obsidian);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .week-number span {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--gold-light);
-  }
-
-  .week-content { flex: 1; padding-top: 2px; }
-
-  .week-title {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink);
-    margin-bottom: 3px;
-  }
-
-  .week-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    color: var(--mist);
-    line-height: 1.5;
-  }
-
-  .week-ai {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 10px;
-    color: #7A5810;
-    background: var(--gold-pale);
-    padding: 2px 8px;
-    border-radius: 10px;
-    margin-top: 6px;
-    display: inline-block;
-    border: 1px solid rgba(201,168,76,0.2);
-  }
-
-  /* Deliverables */
-  .deliverable-item {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .deliverable-item:last-child { border-bottom: none; }
-
-  .del-num {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--obsidian);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .del-num span {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    color: var(--gold);
-  }
-
-  .del-content {}
-
-  .del-title {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink);
-    margin-bottom: 2px;
-  }
-
-  .del-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    color: var(--mist);
-    line-height: 1.5;
-  }
-
-  /* Getting started steps */
-  .step-item {
-    display: flex;
-    gap: 14px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .step-item:last-child { border-bottom: none; }
-
-  .step-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--gold);
-    flex-shrink: 0;
-    margin-top: 5px;
-  }
-
-  .step-text {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    color: var(--slate);
-    line-height: 1.6;
-  }
-
-  .step-text strong {
-    color: var(--ink);
-    font-weight: 500;
-  }
-
-  /* Standup banner */
-  .standup-banner {
-    background: var(--obsidian);
-    border-radius: 14px;
-    padding: 18px 20px;
-    margin: 0 20px 28px;
+  .card-dark {
+    background: radial-gradient(ellipse at 85% 15%, rgba(201,168,76,0.12) 0%, transparent 55%),
+                linear-gradient(155deg, #14100A 0%, #201608 100%);
+    border: 1px solid rgba(201,168,76,0.15);
+    color: rgba(248,245,239,0.75);
     position: relative;
     overflow: hidden;
   }
 
-  .standup-banner::after {
+  .card-dark::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
@@ -462,121 +482,891 @@
     background: linear-gradient(90deg, #7A5010, var(--gold) 30%, #F0D878 50%, var(--gold) 70%, #7A5010);
   }
 
-  .standup-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(201,168,76,0.6);
-    margin-bottom: 6px;
+  .card-dark .card-eyebrow { color: rgba(201,168,76,0.55); }
+  .card-dark p { color: rgba(248,245,239,0.65); }
+
+  .card-gold {
+    background: var(--gold-pale);
+    border: 1px solid rgba(201,168,76,0.25);
   }
 
-  .standup-time {
+  .card-gold .card-eyebrow { color: #7A5810; }
+  .card-gold p { color: var(--slate); }
+
+  /* Gain items */
+  .gain-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .gain-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .gain-item:last-child { border-bottom: none; }
+
+  .gain-icon {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: var(--gold-pale);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+  }
+
+  .gain-text strong {
+    color: var(--ink);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .gain-text span {
+    color: var(--slate);
+    font-size: 14px;
+  }
+
+  /* ═══════════════════════════════════════════
+     TIMELINE
+     ═══════════════════════════════════════════ */
+
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 13px;
+    top: 18px;
+    bottom: 18px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .tl-week {
+    position: relative;
+    padding: 20px 0 28px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tl-week:last-child { border-bottom: none; }
+
+  .tl-marker {
+    position: absolute;
+    left: -40px;
+    top: 20px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gold);
+  }
+
+  .tl-week.current .tl-marker {
+    background: var(--gold);
+    color: var(--obsidian);
+  }
+
+  .tl-week-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    gap: 12px;
+  }
+
+  .tl-title {
     font-family: 'Cormorant Garamond', serif;
     font-size: 22px;
     font-weight: 500;
-    color: var(--cream);
+    color: var(--ink);
+  }
+
+  .tl-ai-tag {
+    font-size: 11px;
+    color: var(--mist);
+    font-style: italic;
+  }
+
+  .tl-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--slate);
+    max-width: 680px;
+  }
+
+  .tl-shared-note {
+    margin-top: 14px;
+    padding: 14px 18px;
+    background: var(--gold-pale);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--slate);
+  }
+
+  .tl-shared-note strong {
+    color: #7A5810;
+    font-weight: 500;
+    display: block;
     margin-bottom: 4px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ═══════════════════════════════════════════
+     STANDUP PANEL
+     ═══════════════════════════════════════════ */
+
+  .standup-panel {
+    background: radial-gradient(ellipse at 80% 15%, rgba(201,168,76,0.18) 0%, transparent 55%),
+                radial-gradient(ellipse at 10% 90%, rgba(120,60,10,0.28) 0%, transparent 50%),
+                linear-gradient(155deg, #14100A 0%, #2A1C0C 45%, #16100A 100%);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 18px;
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .standup-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #7A5010, var(--gold) 30%, #F0D878 50%, var(--gold) 70%, #7A5010);
+  }
+
+  .standup-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .standup-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--cream);
+  }
+
+  .standup-when {
+    font-size: 13px;
+    color: rgba(201,168,76,0.7);
+    letter-spacing: 0.04em;
   }
 
   .standup-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.5;
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 28px;
   }
 
-  /* Showcase banner */
-  .showcase-banner {
-    margin: 0 20px 28px;
-    background: linear-gradient(135deg, #A07820, var(--gold-light) 50%, #A07820);
-    border-radius: 14px;
-    padding: 20px 22px;
+  .standup-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
-  .showcase-label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 9px;
-    letter-spacing: 0.2em;
+  @media (max-width: 768px) {
+    .standup-grid { grid-template-columns: 1fr; }
+  }
+
+  .standup-item {
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+  }
+
+  .standup-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: rgba(201,168,76,0.75);
+    margin-right: 8px;
+  }
+
+  .standup-item-title {
+    font-size: 13px;
+    color: var(--cream);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .standup-item-body {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.55;
+  }
+
+  .standup-footer {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(201,168,76,0.15);
+    display: flex;
+    gap: 20px;
+  }
+
+  .standup-footer-block {
+    flex: 1;
+  }
+
+  .standup-footer-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(13,13,15,0.6);
+    color: rgba(201,168,76,0.55);
     margin-bottom: 6px;
+  }
+
+  .standup-footer-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.55;
+  }
+
+  /* ═══════════════════════════════════════════
+     CHECK-IN TRACKER
+     ═══════════════════════════════════════════ */
+
+  .tracker {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 1100px) {
+    .tracker { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .tracker { grid-template-columns: 1fr; }
+  }
+
+  .tracker-col {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 18px;
+  }
+
+  .tracker-col.current {
+    background: var(--gold-pale);
+    border-color: rgba(201,168,76,0.35);
+  }
+
+  .tracker-week {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .tracker-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tracker-col.current .tracker-title {
+    border-bottom-color: rgba(201,168,76,0.25);
+  }
+
+  .tracker-task {
+    display: flex;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--slate);
+  }
+
+  .tracker-checkbox {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--mist);
+    border-radius: 3px;
+    margin-top: 2px;
+  }
+
+  /* ═══════════════════════════════════════════
+     CRITIQUE
+     ═══════════════════════════════════════════ */
+
+  .critique-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 960px) {
+    .critique-grid { grid-template-columns: 1fr; }
+  }
+
+  .critique-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+
+  .pair-block {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+
+  .pair-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--slate);
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .pair-row:last-child { border-bottom: none; }
+
+  .pair-name {
+    color: var(--ink);
+    font-weight: 500;
+    min-width: 88px;
+  }
+
+  .pair-arrow {
+    color: var(--gold);
+    font-size: 11px;
+  }
+
+  .look-for {
+    list-style: none;
+  }
+
+  .look-for li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--slate);
+  }
+
+  .look-for li:last-child { border-bottom: none; }
+
+  .look-for strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ═══════════════════════════════════════════
+     MEMBER TABS
+     ═══════════════════════════════════════════ */
+
+  .member-nav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+  }
+
+  .member-tab {
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mist);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .member-tab:hover {
+    color: var(--slate);
+  }
+
+  .member-tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--gold);
+  }
+
+  .member-panel {
+    display: none;
+  }
+
+  .member-panel.active {
+    display: block;
+    animation: fadeIn 0.35s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .member-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 32px;
+  }
+
+  @media (max-width: 960px) {
+    .member-layout { grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  .member-header-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 26px;
+    height: fit-content;
+    position: sticky;
+    top: 88px;
+  }
+
+  @media (max-width: 960px) {
+    .member-header-card { position: static; }
+  }
+
+  .member-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 60%, var(--gold) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: var(--obsidian);
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+
+  .member-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .member-role {
+    font-size: 12px;
+    color: var(--slate);
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+
+  .member-project-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .member-project-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+
+  .member-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .member-pill {
+    font-size: 10px;
+    padding: 4px 10px;
+    background: var(--cream);
+    color: var(--slate);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+  }
+
+  .member-pill.dark {
+    background: var(--obsidian);
+    color: var(--gold-light);
+    border-color: rgba(201,168,76,0.2);
+  }
+
+  .member-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .member-section {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+  }
+
+  .member-section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .member-section h3 { margin-bottom: 8px; }
+
+  .member-section p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--slate);
+    margin-bottom: 0;
+  }
+
+  .member-critique-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (max-width: 640px) {
+    .member-critique-pair { grid-template-columns: 1fr; }
+  }
+
+  .critique-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .critique-box-label {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 4px;
+  }
+
+  .critique-box-name {
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .ruby-sub-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 8px;
+  }
+
+  .ruby-sub-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--slate);
+  }
+
+  .ruby-sub-list li:last-child { border-bottom: none; }
+
+  .ruby-sub-list strong {
+    color: var(--ink);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ═══════════════════════════════════════════
+     DELIVERABLES
+     ═══════════════════════════════════════════ */
+
+  .deliv-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 860px) {
+    .deliv-row { grid-template-columns: 1fr; }
+  }
+
+  .deliv-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 24px;
+    position: relative;
+  }
+
+  .deliv-number {
+    position: absolute;
+    top: 16px; right: 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 34px;
+    color: var(--gold-pale);
+    line-height: 1;
+  }
+
+  .deliv-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .deliv-desc {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--slate);
+  }
+
+  /* ═══════════════════════════════════════════
+     SHOWCASE
+     ═══════════════════════════════════════════ */
+
+  .showcase-panel {
+    background: linear-gradient(135deg, #A07820 0%, var(--gold-light) 50%, #A07820 100%);
+    border-radius: 18px;
+    padding: 40px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .showcase-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(13,13,15,0.55);
+    margin-bottom: 10px;
+    font-weight: 500;
   }
 
   .showcase-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
+    font-size: 40px;
     font-weight: 500;
     color: var(--obsidian);
-    margin-bottom: 4px;
+    line-height: 1.1;
+    margin-bottom: 14px;
   }
 
-  .showcase-desc {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    color: rgba(13,13,15,0.65);
-    line-height: 1.5;
+  .showcase-lead {
+    font-size: 15px;
+    color: rgba(13,13,15,0.7);
+    line-height: 1.65;
+    margin-bottom: 28px;
+    max-width: 640px;
   }
 
-  /* Section divider */
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 0 20px 28px;
+  .showcase-section {
+    background: rgba(13,13,15,0.08);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 16px;
   }
 
-  /* Fade up animation */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
+  .showcase-sec-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(13,13,15,0.55);
+    margin-bottom: 12px;
+    font-weight: 500;
   }
 
-  .fu { animation: fadeUp 0.5s ease both; }
-  .d1 { animation-delay: 0.05s; }
-  .d2 { animation-delay: 0.12s; }
-  .d3 { animation-delay: 0.18s; }
-  .d4 { animation-delay: 0.24s; }
-  .d5 { animation-delay: 0.30s; }
-  .d6 { animation-delay: 0.36s; }
-  .d7 { animation-delay: 0.42s; }
-
-  /* Member tabs */
-  .member-tabs {
-    display: flex;
-    gap: 6px;
-    padding: 0 20px 16px;
-    overflow-x: auto;
-    scrollbar-width: none;
+  .showcase-list {
+    list-style: none;
   }
-  .member-tabs::-webkit-scrollbar { display: none; }
 
-  .member-tab {
-    flex-shrink: 0;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    background: var(--white);
+  .showcase-list li {
+    padding: 6px 0;
+    font-size: 13px;
+    color: rgba(13,13,15,0.75);
+    line-height: 1.6;
+  }
+
+  .showcase-list li strong {
+    color: var(--obsidian);
+    font-weight: 500;
+  }
+
+  .showcase-list li .num {
+    color: rgba(13,13,15,0.45);
+    margin-right: 8px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+  }
+
+  /* ═══════════════════════════════════════════
+     GETTING STARTED
+     ═══════════════════════════════════════════ */
+
+  .steps-list {
+    list-style: none;
+    counter-reset: steps;
+  }
+
+  .steps-list li {
+    counter-increment: steps;
+    position: relative;
+    padding: 20px 0 20px 52px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    line-height: 1.7;
     color: var(--slate);
-    transition: all 0.15s;
   }
 
-  .member-tab.active {
-    background: var(--obsidian);
-    color: var(--gold-light);
-    border-color: var(--obsidian);
+  .steps-list li::before {
+    content: counter(steps);
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 32px;
+    height: 32px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    color: var(--gold);
+    font-size: 15px;
   }
 
-  .member-panel { display: none; }
-  .member-panel.active { display: block; }
+  .steps-list li:last-child { border-bottom: none; }
 
-  /* Footer */
-  .doc-footer {
-    padding: 28px 20px;
-    text-align: center;
+  .steps-list strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .prompt-quote {
+    display: block;
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    margin-top: 10px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: var(--slate);
+    font-style: italic;
+    line-height: 1.65;
+  }
+
+  /* ═══════════════════════════════════════════
+     CLOSING BANNER
+     ═══════════════════════════════════════════ */
+
+  .closing {
+    background: radial-gradient(ellipse at 80% 15%, rgba(201,168,76,0.28) 0%, transparent 55%),
+                radial-gradient(ellipse at 5% 85%, rgba(120,60,10,0.4) 0%, transparent 50%),
+                linear-gradient(155deg, #1C1208 0%, #3A2208 45%, #1E1208 100%);
+    border-radius: 18px;
+    padding: 52px 48px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  .closing::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #7A5010, var(--gold) 30%, #F0D878 50%, var(--gold) 70%, #7A5010);
+  }
+
+  .closing-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.55);
+    margin-bottom: 20px;
+  }
+
+  .closing-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 500;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-bottom: 16px;
+    max-width: 760px;
+  }
+
+  .closing-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: rgba(232,201,122,0.75);
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+
+  .closing-body {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.75;
+    max-width: 620px;
+  }
+
+  /* ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ */
+
+  .footer {
+    padding: 36px 0 12px;
     border-top: 1px solid var(--border);
+    text-align: center;
   }
 
   .footer-logo {
@@ -584,471 +1374,1268 @@
     font-size: 18px;
     font-weight: 500;
     color: var(--ink);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .footer-sub {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 10px;
+    font-size: 11px;
     color: var(--mist);
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
+
+  /* ─── Week navigation states ─── */
+  .nav-item.week-done {
+    color: var(--slate);
+  }
+
+  .nav-item.week-done .nav-number {
+    color: var(--green-ok, #2E7D5C);
+    font-style: normal;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+  }
+
+  .nav-item.week-done .nav-number::before {
+    content: '✓';
+    color: #2E7D5C;
+  }
+
+  .nav-item.week-done .nav-number::after {
+    content: attr(data-week);
+  }
+
+  .nav-item.week-current {
+    font-weight: 500;
+  }
+
+  .nav-item.week-preview {
+    color: var(--mist);
+    opacity: 0.7;
+  }
+
+  .nav-item.week-preview .nav-number {
+    color: var(--mist);
+  }
+
+  /* ─── Week section styling ─── */
+  .week-section {
+    margin-bottom: 72px;
+    scroll-margin-top: 88px;
+  }
+
+  .week-header {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .week-big-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 88px;
+    font-weight: 300;
+    line-height: 0.85;
+    color: var(--gold);
+    font-style: italic;
+    letter-spacing: -0.03em;
+  }
+
+  .week-section.done .week-big-number {
+    color: var(--border);
+  }
+
+  .week-section.preview .week-big-number {
+    color: var(--mist);
+    opacity: 0.4;
+  }
+
+  .week-title-block h2 {
+    margin-bottom: 6px;
+  }
+
+  .week-status {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .week-status.current { color: var(--gold); }
+  .week-status.done { color: #2E7D5C; }
+  .week-status.preview { color: var(--mist); }
+
+  .week-status.done::before { content: '✓ '; }
+
+  .week-focus {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.55;
+    max-width: 680px;
+    margin-bottom: 32px;
+    padding-left: 0;
+  }
+
+  .week-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+
+  .week-block-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .week-block h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .week-block p {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .week-block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .week-preview-banner {
+    background: var(--cream);
+    border: 1px dashed var(--mist);
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .week-preview-banner-icon {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 1px dashed var(--mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mist);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+  }
+
+  .week-preview-banner-text {
+    font-size: 13px;
+    color: var(--slate);
+    line-height: 1.55;
+  }
+
+  .week-preview-banner-text strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* Step list for week guidance */
+  .step-list {
+    list-style: none;
+    counter-reset: stepnum;
+  }
+
+  .step-list > li {
+    counter-increment: stepnum;
+    position: relative;
+    padding: 20px 0 20px 54px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .step-list > li:last-child { border-bottom: none; }
+
+  .step-list > li::before {
+    content: counter(stepnum);
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 36px;
+    height: 36px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    color: var(--gold);
+    font-size: 17px;
+    font-style: italic;
+  }
+
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.35;
+  }
+
+  .step-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--slate);
+    margin-bottom: 10px;
+  }
+
+  .step-body:last-child { margin-bottom: 0; }
+
+  .synth-q, .outline-q {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  .synth-q-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .prompt-card {
+    background: var(--gold-pale);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-top: 12px;
+  }
+
+  .prompt-card-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #7A5810;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .prompt-card-body {
+    font-size: 13px;
+    color: var(--slate);
+    font-style: italic;
+    line-height: 1.65;
+  }
+
+  .bring-card {
+    background: radial-gradient(ellipse at 85% 15%, rgba(201,168,76,0.12) 0%, transparent 55%),
+                linear-gradient(155deg, #14100A 0%, #201608 100%);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 12px;
+    padding: 24px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bring-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #7A5010, var(--gold) 30%, #F0D878 50%, var(--gold) 70%, #7A5010);
+  }
+
+  .bring-card-label {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.6);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  .bring-card h3 {
+    color: var(--cream);
+    margin-bottom: 10px;
+  }
+
+  .bring-card p {
+    color: rgba(248,245,239,0.7);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .bring-card p:last-child { margin-bottom: 0; }
+
+  /* ═══════════════════════════════════════════
+     ENTRANCE ANIMATION
+     ═══════════════════════════════════════════ */
+
+  .fu {
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fu { transform: translateY(12px); }
+
+  .d1 { animation-delay: 0.05s; }
+  .d2 { animation-delay: 0.15s; }
+  .d3 { animation-delay: 0.25s; }
 </style>
 </head>
 <body>
-<div class="phone">
 
-  <div class="gold-strip"></div>
+<div class="app">
 
-  <!-- Hero -->
-  <div class="hero fu">
-    <div class="hero-label">Harland Education · Internal Programme</div>
-    <div class="hero-title">The Harland<br><span>Claude Programme</span></div>
-    <div class="hero-date">Launched 14 April 2026 · Taipei</div>
-  </div>
+  <!-- ═══ TOP BAR ═══ -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">Harland Education</div>
+      <div class="brand-divider"></div>
+      <div class="brand-program">Claude Team Program</div>
+    </div>
+    <div class="topbar-meta">
+      <div class="live-indicator"><div class="live-dot"></div>Week 2 · Active</div>
+      <div>Launched April 14, 2026</div>
+    </div>
+  </header>
 
-  <!-- Principal's Address -->
-  <div class="section fu d1">
-    <div class="section-label">From the Principal</div>
-    <div class="address-card">
-      <div class="address-greeting">To the Harland Team,</div>
-      <div class="address-body">
-        <p>We are at an inflection point — not just as a company, but as educators. The tools available to us today would have been unimaginable five years ago, and the teams that learn to use them well will define what premium education looks like in the decade ahead.</p>
-        <p>This programme is my invitation to each of you to become part of that. Not as passive observers of what AI can do, but as active designers of how Harland will use it.</p>
-        <p>Over the next five weeks, each of you will take ownership of a real project — one that will ultimately shape the learning experience we deliver to our students. You will work with Claude as a thinking partner, a research assistant, a design collaborator, and a critic. You will present your work to the team. And you will leave this programme with a capability that will change how you work, permanently.</p>
-        <p>I have chosen each of your projects deliberately. They reflect what you know, what you are best positioned to build, and where I believe Harland needs your voice most. I am not asking you to become technologists. I am asking you to bring your expertise to a new tool — and to trust that the combination is more powerful than either alone.</p>
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="nav-section">
+      <div class="nav-label">Weekly Guides</div>
+      <a class="nav-item week-done" onclick="scrollToSection('week1')"><span class="nav-number">1</span>Week 1 · Research</a>
+      <a class="nav-item active week-current" onclick="scrollToSection('week2')"><span class="nav-number">2</span>Week 2 · Define</a>
+      <a class="nav-item week-preview" onclick="scrollToSection('week3')"><span class="nav-number">3</span>Week 3 · Draft</a>
+      <a class="nav-item week-preview" onclick="scrollToSection('week4')"><span class="nav-number">4</span>Week 4 · Critique + Brief</a>
+      <a class="nav-item week-preview" onclick="scrollToSection('week5')"><span class="nav-number">5</span>Week 5 · Revise + Showcase</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">Program</div>
+      <a class="nav-item" onclick="scrollToSection('overview')"><span class="nav-number">I</span>Overview</a>
+      <a class="nav-item" onclick="scrollToSection('gain')"><span class="nav-number">II</span>What You Gain</a>
+      <a class="nav-item" onclick="scrollToSection('structure')"><span class="nav-number">III</span>Timeline</a>
+      <a class="nav-item" onclick="scrollToSection('standup')"><span class="nav-number">IV</span>Weekly Standup</a>
+      <a class="nav-item" onclick="scrollToSection('tracker')"><span class="nav-number">V</span>Check-in Tracker</a>
+      <a class="nav-item" onclick="scrollToSection('critique')"><span class="nav-number">VI</span>Critique</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label">The Team</div>
+      <a class="nav-item" onclick="scrollToSection('projects')"><span class="nav-number">VII</span>Your Project</a>
+      <a class="nav-item" onclick="scrollToSection('deliverables')"><span class="nav-number">VIII</span>Deliverables</a>
+      <a class="nav-item" onclick="scrollToSection('showcase')"><span class="nav-number">IX</span>Team Showcase</a>
+    </div>
+    <div class="nav-progress">
+      <div class="nav-progress-label">Program Progress</div>
+      <div class="nav-progress-week">Week 2 of 5</div>
+      <div class="nav-progress-desc">Define your activity</div>
+      <div class="nav-progress-bar">
+        <div class="nav-progress-fill" style="width:40%;"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main class="main">
+
+    <!-- ═══ HERO / OVERVIEW ═══ -->
+    <section class="section hero" id="overview">
+      <div class="hero-eyebrow fu d1">Internal Program · April 2026 · Taipei</div>
+      <h1 class="fu d2">The Harland<br><span class="accent">Claude Program</span></h1>
+      <p class="intro-meta fu d3">A five-week program to build the team's first in-app training activities with Claude.</p>
+
+      <div class="address fu d3">
+        <div class="address-eyebrow">From the Principal</div>
+        <div class="address-greeting">To the Harland Team,</div>
+        <p>You are each the best person at Harland to lead the project I have assigned you. Everything you already know about teaching, operations, and how students think is what this program is built around. I am not asking you to become technologists. I am asking you to bring your expertise to a new tool that will help your work go further.</p>
+        <p>Over the next five weeks you will work with Claude as a thinking partner, research assistant, and critic. You will produce something real that will shape the app our students use. And you will leave with a capability that changes how you work, permanently.</p>
         <p>I am genuinely excited to see what this team produces.</p>
-      </div>
-      <div class="address-sig">
-        <div class="address-sig-name">Mr. Harris</div>
-        <div class="address-sig-title">Principal · Harland Education</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Programme Overview -->
-  <div class="section fu d2">
-    <div class="section-label">Programme Structure</div>
-    <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--slate);line-height:1.7;margin-bottom:4px;">Over the next five weeks you will research, design, and present an activity for the Harland training app — or in Ms. Ruby's case, a complete onboarding experience for new families. An activity is a specific thing a student does inside the app to build a skill outside of their lessons. You are not writing code. You are defining what your activity should do, how it should work, and what it should look like — well enough that a developer can build it from your brief. The timeline below shows how we get there.</div>
-  </div>
-
-  <!-- Timeline -->
-  <div class="timeline fu d2">
-    <div class="timeline-week">
-      <div class="week-number"><span>1</span></div>
-      <div class="week-content">
-        <div class="week-title">Research + Critique</div>
-        <div class="week-desc">Investigate your reference platform. Research with the critique lens active — what works, what is missing, what Harland would do differently.</div>
-        <div class="week-ai">Claude Desktop · researching the web</div>
-      </div>
-    </div>
-    <div class="timeline-week">
-      <div class="week-number"><span>2</span></div>
-      <div class="week-content">
-        <div class="week-title">Define + Begin Draft</div>
-        <div class="week-desc">Clarify your own thinking about what your activity actually is. Once you are clear on the scope, begin drafting the core interaction and content.</div>
-        <div class="week-ai">Prompt engineering · system prompts</div>
-      </div>
-    </div>
-    <div class="timeline-week">
-      <div class="week-number"><span>3</span></div>
-      <div class="week-content">
-        <div class="week-title">Complete Draft</div>
-        <div class="week-desc">All core elements should exist in rough form by end of week. Content, interaction logic, and structure in place.</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:var(--slate);background:var(--gold-pale);border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:8px 10px;margin-top:8px;line-height:1.55;">
-          <span style="color:#7A5810;font-weight:500;display:block;margin-bottom:3px;">⭑ Shared task — whole team</span>
-          Each person contributes two principles to a shared one-page document: what makes a great Harland training activity? Your principles must come from your research domain. The document is synthesised by Mr. Harris and becomes the shared standard all four briefs are measured against at the showcase.
+        <div class="address-sig">
+          <div class="address-name">Mr. Harris</div>
+          <div class="address-role">Principal · Harland Education</div>
         </div>
-        <div class="week-ai">Claude Projects · document upload</div>
       </div>
-    </div>
-    <div class="timeline-week">
-      <div class="week-number"><span>4</span></div>
-      <div class="week-content">
-        <div class="week-title">Brief + Mockup</div>
-        <div class="week-desc">Convert your draft into the standard activity brief. Generate your Claude mockup using the Harland design system.</div>
-        <div class="week-ai">Structured output · templates</div>
-      </div>
-    </div>
-    <div class="timeline-week">
-      <div class="week-number"><span>5</span></div>
-      <div class="week-content">
-        <div class="week-title">Revise + Showcase</div>
-        <div class="week-desc">Stress-test your brief. Prepare your five-minute screen-by-screen presentation for the team showcase.</div>
-        <div class="week-ai">Using Claude to challenge your own work</div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="standup-banner fu d3">
-    <div class="standup-label">Weekly standup</div>
-    <div class="standup-time">Tuesdays · 4:00 pm</div>
-    <div class="standup-desc">30 minutes · weeks 1 through 5 · all team members present.</div>
-    <div style="margin-top:12px;border-top:1px solid rgba(201,168,76,0.15);padding-top:12px;">
-      <div style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:8px;">Format</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);line-height:1.7;">
-        <div style="margin-bottom:4px;"><span style="color:rgba(201,168,76,0.7);margin-right:6px;">01</span>Warm-up — Week 1 only. Each person shares the most surprising thing they found in their research. Not the most important — the most surprising.</div>
-        <div style="margin-bottom:4px;"><span style="color:rgba(201,168,76,0.7);margin-right:6px;">02</span>Opening round — 3 min per person. One thing you tried and what you learned from it.</div>
-        <div style="margin-bottom:4px;"><span style="color:rgba(201,168,76,0.7);margin-right:6px;">03</span>Focused topic — 10 min. One shared question or challenge relevant to the current week.</div>
-        <div style="margin-bottom:4px;"><span style="color:rgba(201,168,76,0.7);margin-right:6px;">04</span>Next week brief — 5 min. Mr. Harris sets the focus and any new tools or techniques to try.</div>
-      </div>
-    </div>
-    <div style="margin-top:12px;border-top:1px solid rgba(201,168,76,0.15);padding-top:12px;">
-      <div style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(201,168,76,0.5);margin-bottom:6px;">Standup log</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);line-height:1.55;">After each standup Mr. Harris posts five bullet points to the shared Claude Project — what was decided, what was learned, what carries forward. By week 5 this becomes the programme's collective memory and a reference for the showcase.</div>
-    </div>
-  </div>
+    <div class="divider-line"></div>
 
-  <div class="divider"></div>
+    <!-- ═══ WHAT YOU GAIN ═══ -->
+    <section class="section" id="gain">
+      <div class="section-anchor">Section II</div>
+      <h2>What you will gain</h2>
+      <p>By the end of five weeks you will be able to do four things you cannot do today.</p>
 
-  <!-- How critique works -->
-  <div class="section fu d3">
-    <div class="section-label">How critique works</div>
-    <div class="card">
-      <div class="card-body">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--ink);margin-bottom:10px;">You are not there to approve. You are there to improve.</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--slate);line-height:1.65;margin-bottom:14px;">In week 2 each of you will review a colleague's research and give them written feedback. This is one of the most important parts of the program. Done well it makes the work better, builds trust, and teaches you to think critically about your own project by examining someone else's. Your specific critique pairing is listed in your project card below.</div>
-        <div class="card-divider"></div>
-        <div class="card-project-label">What to look for</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--slate);line-height:1.7;">
-          <div style="margin-bottom:6px;"><span style="color:var(--ink);font-weight:500;">Gaps.</span> What is missing from the research? What platform or approach should they have looked at?</div>
-          <div style="margin-bottom:6px;"><span style="color:var(--ink);font-weight:500;">Assumptions.</span> What are they taking for granted? What would a student or parent challenge?</div>
-          <div style="margin-bottom:6px;"><span style="color:var(--ink);font-weight:500;">Strengths.</span> What is the strongest insight in their research? Name it specifically.</div>
-          <div><span style="color:var(--ink);font-weight:500;">One question.</span> The single most important question they have not yet answered.</div>
+      <div class="card-row" style="margin-top:24px;">
+        <div class="card">
+          <ul class="gain-list">
+            <li class="gain-item">
+              <div class="gain-icon">i</div>
+              <div class="gain-text"><strong>Use Claude with confidence</strong><span>For research, writing, critique, and design work you do every day.</span></div>
+            </li>
+            <li class="gain-item">
+              <div class="gain-icon">ii</div>
+              <div class="gain-text"><strong>Design buildable briefs</strong><span>Turn your ideas into documents a developer can actually build from.</span></div>
+            </li>
+            <li class="gain-item">
+              <div class="gain-icon">iii</div>
+              <div class="gain-text"><strong>Present your thinking clearly</strong><span>Defend your choices, explain your reasoning, and answer hard questions.</span></div>
+            </li>
+            <li class="gain-item">
+              <div class="gain-icon">iv</div>
+              <div class="gain-text"><strong>Shape the Harland app</strong><span>What you produce goes directly into what we build for our students.</span></div>
+            </li>
+          </ul>
         </div>
-        <div class="card-divider"></div>
-        <div class="card-project-label">Format</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:var(--slate);line-height:1.65;">Written. Shared with your colleague before the Tuesday standup. No more than one page. Be direct — vague praise is not useful to anyone.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Individual Projects -->
-  <div class="section fu d3">
-    <div class="section-label">Your Project</div>
-  </div>
-
-  <div class="member-tabs">
-    <div class="member-tab active" onclick="showMember('msm')">Ms. M</div>
-    <div class="member-tab" onclick="showMember('judkins')">Mr. Judkins</div>
-    <div class="member-tab" onclick="showMember('glen')">Mr. Glen</div>
-    <div class="member-tab" onclick="showMember('ruby')">Ms. Ruby</div>
-    <div class="member-tab" onclick="showMember('phil')">Mr. Harris</div>
-  </div>
-
-  <!-- Ms. M -->
-  <div class="member-panel active" id="panel-msm">
-    <div style="padding: 0 20px;">
-      <div class="card fu d3">
-        <div class="card-header">
-          <div class="card-avatar"><span>M</span></div>
-          <div>
-            <div class="card-header-name">Ms. M</div>
-            <div class="card-header-role">Head Teacher</div>
+        <div>
+          <div class="card card-dark" style="margin-bottom:16px;">
+            <div class="card-eyebrow">A note on AI</div>
+            <p>Claude is your research partner and your thinking partner. It is not the author of your work. Your judgment is what makes this program worth doing. That means your teaching experience, your operational knowledge, your instinct for what students and families actually need. The AI is a tool that amplifies your thinking. It does not replace it.</p>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="card-project-label">Your project</div>
-          <div class="card-project-name">K–3 Reading Room</div>
-          <div class="card-project-desc">You will design the reading activity experience for our youngest students. Your job is not to replicate what already exists — it is to research the best early reading platforms available, identify what they achieve and where they fall short, and design what a Harland reading experience would look like if built from scratch with our students in mind. Your teaching experience is the lens through which all of this gets filtered.</div>
-          <div class="card-meta-row">
-            <div class="card-pill">Grades K–3</div>
-            <div class="card-pill">Levelled readers</div>
-            <div class="card-pill">Comprehension</div>
-          </div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Week 1 focus</div>
-          <div class="card-project-desc">Research the best early reading platforms available. Some starting points: Raz-Kids, Reading Eggs, Lexia Core5, Epic!, and Starfall. Do not stop here — use Claude to find others and go deeper on the ones that interest you most. Your job is not to summarise what these platforms do. It is to understand what they achieve, where they fall short, and what a Harland reading experience would do that none of them do.</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Your week 1 deliverable</div>
-          <div class="card-project-desc">A comparison table — one row per platform — covering what it does well, what it misses, one thing Harland should take from it, and one thing Harland should avoid. Five to eight platforms minimum. Bring this to Tuesday's standup.</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Week 3 shared task</div>
-          <div class="card-project-desc">Contribute two principles to the team's shared Harland Training Activity standards document. Your principles should draw from what you have learned about early reading pedagogy — what every good Harland activity should do for a young learner.</div>
-          <div class="card-divider"></div>
-          <div class="card-divider"></div>
-          <div class="card-critique">
-            <div class="critique-label">You will review</div>
-            <div class="critique-name">Mr. Glen's Vocabulary Journal</div>
+          <div class="card card-gold">
+            <div class="card-eyebrow">Time commitment</div>
+            <p>Expect about 3 to 4 hours of research and writing per week, plus the 30-minute Tuesday standup. The work fits around your existing schedule. You choose when and where to do it.</p>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Mr. Judkins -->
-  <div class="member-panel" id="panel-judkins">
-    <div style="padding: 0 20px;">
-      <div class="card fu d3">
-        <div class="card-header">
-          <div class="card-avatar"><span>J</span></div>
-          <div>
-            <div class="card-header-name">Mr. Judkins</div>
-            <div class="card-header-role">Head of STEM + Test Prep</div>
+    <div class="divider-line"></div>
+
+    <!-- ═══ PROGRAM STRUCTURE ═══ -->
+    <section class="section" id="structure">
+      <div class="section-anchor">Section III</div>
+      <h2>Program structure</h2>
+      <p style="max-width:720px;">Over the next five weeks you will research, design, and present an activity for the Harland training app. Ms. Ruby's project is different. She will design a complete onboarding experience for new families. An activity is a specific thing a student does inside the app to build a skill outside of their lessons. You are not writing code. You are defining what your activity should do, how it should work, and what it should look like, clearly enough that a developer can build it from your brief.</p>
+      <p style="max-width:720px;font-style:italic;color:var(--mist);">You will try things that do not work. That is how this kind of work goes. Often noticing what does not work is more valuable than finding what does.</p>
+
+      <div class="card-row" style="margin-top:28px;">
+        <div class="card">
+          <div class="card-eyebrow">What an activity brief is</div>
+          <p style="margin-bottom:10px;">A short document that tells a developer exactly what to build. It covers purpose, how the activity works step by step, what content goes inside, and any open questions. Specific enough that a developer can build from it without asking follow-up questions. If they could read it and start coding, it is done.</p>
+          <p style="background:var(--cream);border-left:2px solid var(--gold);padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;margin-bottom:0;">The standard template with examples is available as a reference page. Open it before you begin your brief in week 4. Link will be shared in the Claude Project.</p>
+        </div>
+        <div class="card">
+          <div class="card-eyebrow">What a draft looks like</div>
+          <p style="margin-bottom:10px;">A strong draft shows three things. First, the core experience. What a student actually does when they use your activity. Second, a sample of real content, enough for someone to try it. Third, your thinking about why it works.</p>
+          <p style="margin-bottom:10px;">Form is up to you. Google Docs, slides, a written document, sketches, whatever best communicates your activity.</p>
+          <p style="color:var(--ink);font-weight:500;margin-bottom:0;">Aim for 2 to 3 pages or equivalent. Hard ceiling at 4. If you cannot fit it in that space, you are not yet clear enough on what your activity is.</p>
+        </div>
+      </div>
+
+      <h3 style="margin-top:40px; margin-bottom:20px;">Five-week timeline</h3>
+      <div class="timeline">
+        <div class="tl-week">
+          <div class="tl-marker">1</div>
+          <div class="tl-week-header">
+            <div class="tl-title">Research</div>
+            <div class="tl-ai-tag">Claude Desktop · researching the web</div>
+          </div>
+          <div class="tl-desc">Investigate your reference platforms. Research with a sharp eye. What works, what is missing, what Harland would do differently. Produce a comparison table you can bring to Tuesday's standup.</div>
+        </div>
+        <div class="tl-week current">
+          <div class="tl-marker">2</div>
+          <div class="tl-week-header">
+            <div class="tl-title">Define</div>
+            <div class="tl-ai-tag">Prompt engineering · system prompts</div>
+          </div>
+          <div class="tl-desc">Commit to what your activity actually is before you start building it. Produce a one-page activity outline covering name, what it is, what the student does, why it works for Harland students, and your open questions.</div>
+        </div>
+        <div class="tl-week">
+          <div class="tl-marker">3</div>
+          <div class="tl-week-header">
+            <div class="tl-title">Draft</div>
+            <div class="tl-ai-tag">Claude Projects · document upload</div>
+          </div>
+          <div class="tl-desc">By end of week you should be able to walk someone through your activity in five minutes. What happens on each screen. What the student sees. What happens when they complete it. Share your draft with your critique partner before Monday of week 4.</div>
+        </div>
+        <div class="tl-week">
+          <div class="tl-marker">4</div>
+          <div class="tl-week-header">
+            <div class="tl-title">Critique + Brief + Mockup</div>
+            <div class="tl-ai-tag">Turning your ideas into a clean, shareable brief</div>
+          </div>
+          <div class="tl-desc">You receive written feedback from your critique partner at the start of the week. Use it to sharpen your thinking. Convert your draft into the standard activity brief and generate your Claude mockup using the Harland design system.</div>
+        </div>
+        <div class="tl-week">
+          <div class="tl-marker">5</div>
+          <div class="tl-week-header">
+            <div class="tl-title">Revise + Showcase</div>
+            <div class="tl-ai-tag">Using Claude to challenge your own work</div>
+          </div>
+          <div class="tl-desc">Stress-test your brief. Prepare your five-minute screen-by-screen presentation for the team showcase.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- ═══ WEEK 1 · RESEARCH (DONE) ═══ -->
+    <section class="week-section done" id="week1">
+      <div class="week-header">
+        <div class="week-big-number">1</div>
+        <div class="week-title-block">
+          <div class="week-status done">Week Complete</div>
+          <h2>Research</h2>
+        </div>
+      </div>
+      <p class="week-focus">Investigate the best platforms in your domain. Figure out what they do well, where they fall short, and what Harland would do differently.</p>
+
+      <div class="week-block">
+        <div class="week-block-label">What you produced</div>
+        <h3>A comparison table</h3>
+        <p>One row per platform, covering what it does well, what it misses, one thing Harland should take from it, and one thing Harland should avoid. Five to eight platforms minimum. Brought to the week 2 standup on Tuesday.</p>
+      </div>
+
+      <div class="week-block">
+        <div class="week-block-label">How you did it</div>
+        <ol class="step-list">
+          <li>
+            <div class="step-title">Started with the suggested platforms</div>
+            <div class="step-body">The project card listed five to seven reference platforms as starting points. Claude Desktop was used to research each one, pull out what each platform does well, and identify gaps.</div>
+          </li>
+          <li>
+            <div class="step-title">Went deeper on what was interesting</div>
+            <div class="step-body">Each person followed their own judgement about which platforms deserved more attention, adding their own finds to the list.</div>
+          </li>
+          <li>
+            <div class="step-title">Built the comparison</div>
+            <div class="step-body">Research shaped into a structured comparison table with enough specificity that week 2 synthesis could build on it directly.</div>
+          </li>
+          <li>
+            <div class="step-title">Posted one finding to LINE</div>
+            <div class="step-body">One surprising thing, one question, or one takeaway shared with the team before the Tuesday standup.</div>
+          </li>
+        </ol>
+      </div>
+
+      <div class="bring-card">
+        <div class="bring-card-label">Standup outcome</div>
+        <h3>Walked the team through your table</h3>
+        <p>Three minutes each. What you found, what surprised you, what Harland would do differently. The research produced in week 1 is the foundation for week 2 synthesis.</p>
+      </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- ═══ WEEK 2 · DEFINE (CURRENT) ═══ -->
+    <section class="week-section current" id="week2">
+      <div class="week-header">
+        <div class="week-big-number">2</div>
+        <div class="week-title-block">
+          <div class="week-status current">Current Week</div>
+          <h2>Define</h2>
+        </div>
+      </div>
+      <p class="week-focus">Synthesize your research into insight. Then turn that insight into a clear commitment: here is what my activity is, and here is why.</p>
+
+      <div class="week-block">
+        <div class="week-block-label">What you will produce</div>
+        <h3>A single Google Doc with two sections</h3>
+        <p>Part A is a research synthesis. Part B is an activity outline that flows from the synthesis. Together they form the thinking document that bridges week 1 research and week 3 drafting.</p>
+        <p><strong>Format.</strong> One Google Doc. Create it in the Harland shared drive so everyone can access it. Share the link in the Shared Claude Project before the week 3 standup.</p>
+        <p><strong>Length.</strong> About two to three pages total. Synthesis should be roughly one page. Outline should be roughly one page. If you are writing more than that, you are adding padding.</p>
+      </div>
+
+      <div class="week-block">
+        <div class="week-block-label">Part A · Research synthesis</div>
+        <h3>What your research taught you</h3>
+        <p>Do not summarize. Synthesize. Extract the insights. The goal is to form a point of view about what a premium training activity should be, built from what you saw across the platforms you researched.</p>
+        <p>Answer these four questions:</p>
+        <div class="synth-q">
+          <div class="synth-q-label">Question 1</div>
+          What are the three to five most important things your research taught you? Not what platforms exist. What you learned about how the best activities actually work.
+        </div>
+        <div class="synth-q">
+          <div class="synth-q-label">Question 2</div>
+          What is the single strongest idea you saw across the platforms you researched? Name it specifically. What makes it work?
+        </div>
+        <div class="synth-q">
+          <div class="synth-q-label">Question 3</div>
+          What is the single biggest failure or blind spot you saw? What causes it? Why do most platforms fall into it?
+        </div>
+        <div class="synth-q">
+          <div class="synth-q-label">Question 4</div>
+          What do premium tutoring students need that none of these platforms give them? This is where Harland's opportunity lives.
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-block-label">Part B · Activity outline</div>
+        <h3>What you will build</h3>
+        <p>Your synthesis in Part A should have produced a point of view. Part B is where you commit to a specific activity built from that point of view. Five questions, short answers.</p>
+        <div class="synth-q">
+          <div class="synth-q-label">Question 1 · Activity name</div>
+          A working title. Not a branding exercise. The name is a handle, not a product. You can change it later.
+        </div>
+        <div class="synth-q">
+          <div class="synth-q-label">Question 2 · What it is, in one sentence</div>
+          The elevator pitch. If you cannot do this in one sentence, you are not yet clear on what your activity is. Keep trying until you can.
+        </div>
+        <div class="synth-q">
+          <div class="synth-q-label">Question 3 · What the student does</div>
+          Three to five sentences describing the experience step by step. What do they see first? What do they do? What happens next? What does completion look like?
+        </div>
+        <div class="synth-q">
+          <div class="synth-q-label">Question 4 · Why this works for Harland students</div>
+          Connect this directly back to your synthesis in Part A. What problem does this solve that the platforms you researched do not? Why does that matter for a Harland student specifically?
+        </div>
+        <div class="synth-q">
+          <div class="synth-q-label">Question 5 · Open questions</div>
+          What do you not know yet? What decisions have you deferred? This is the most useful section for your critique partner in week 4. Write them as questions, not problems.
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-block-label">Using Claude this week</div>
+        <h3>Three prompts that help</h3>
+        <p>Do not paste your outline in and ask Claude to write it. Use Claude to think alongside you, push back on your ideas, and sharpen your writing. The thinking is yours.</p>
+
+        <div class="prompt-card">
+          <div class="prompt-card-label">Prompt 1 · Helping you synthesize</div>
+          <div class="prompt-card-body">"I am synthesizing research on [vocabulary learning / early reading / SAT practice / family onboarding] platforms. Here is my comparison table: [paste]. What are the three to five most important insights here? What am I missing? What is the single strongest pattern across the platforms I looked at?"</div>
+        </div>
+
+        <div class="prompt-card">
+          <div class="prompt-card-label">Prompt 2 · Stress-testing your outline</div>
+          <div class="prompt-card-body">"Here is my activity outline: [paste your five answers]. What is unclear? What assumptions am I making? What would a developer need to ask to build this? Be direct — I want to find the gaps before my critique partner does."</div>
+        </div>
+
+        <div class="prompt-card">
+          <div class="prompt-card-label">Prompt 3 · Sharpening your one-sentence description</div>
+          <div class="prompt-card-body">"I am trying to describe my activity in one sentence. Here is my attempt: [paste]. Help me tighten it. What is fuzzy? What words are doing too much work?"</div>
+        </div>
+      </div>
+
+      <div class="bring-card">
+        <div class="bring-card-label">Bring to the week 3 standup</div>
+        <h3>Your Google Doc link</h3>
+        <p>Post the link in the Shared Claude Project before Tuesday. Three minutes each at the standup to walk us through your synthesis and outline. Expect questions. The more specific your outline, the sharper the feedback.</p>
+      </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- ═══ WEEK 3 · DRAFT (PREVIEW) ═══ -->
+    <section class="week-section preview" id="week3">
+      <div class="week-header">
+        <div class="week-big-number">3</div>
+        <div class="week-title-block">
+          <div class="week-status preview">Preview · Unlocks Week 3</div>
+          <h2>Draft</h2>
+        </div>
+      </div>
+
+      <div class="week-preview-banner">
+        <div class="week-preview-banner-icon">i</div>
+        <div class="week-preview-banner-text"><strong>Preview content.</strong> This section shows what week 3 will involve. Final guidance may be refined before the week begins.</div>
+      </div>
+
+      <p class="week-focus">Turn your outline into a real, walkable draft. By the end of this week, you should be able to walk someone through your activity in five minutes.</p>
+
+      <div class="week-block">
+        <div class="week-block-label">What you will produce</div>
+        <h3>A draft of your activity</h3>
+        <p>A strong draft shows three things. First, the core experience — what a student actually does when they use your activity. Second, a sample of real content, enough for someone to try it. Third, your thinking about why it works.</p>
+        <p>Form is up to you. Google Docs, slides, a written document, sketches, whatever best communicates your activity. Aim for 2 to 3 pages or equivalent. Hard ceiling at 4.</p>
+      </div>
+
+      <div class="week-block">
+        <div class="week-block-label">By end of week</div>
+        <h3>Share your draft with your critique partner</h3>
+        <p>Your critique partner needs time to read and write feedback over the weekend. Share your draft before the end of Sunday so they can have written feedback ready for Monday of week 4.</p>
+      </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- ═══ WEEK 4 · CRITIQUE + BRIEF (PREVIEW) ═══ -->
+    <section class="week-section preview" id="week4">
+      <div class="week-header">
+        <div class="week-big-number">4</div>
+        <div class="week-title-block">
+          <div class="week-status preview">Preview · Unlocks Week 4</div>
+          <h2>Critique + Brief + Mockup</h2>
+        </div>
+      </div>
+
+      <div class="week-preview-banner">
+        <div class="week-preview-banner-icon">i</div>
+        <div class="week-preview-banner-text"><strong>Preview content.</strong> This section shows what week 4 will involve. Final guidance may be refined before the week begins.</div>
+      </div>
+
+      <p class="week-focus">Your critique partner's feedback arrives at the start of the week. Use it to sharpen your thinking. Then convert your draft into the final activity brief and generate a Claude mockup.</p>
+
+      <div class="week-block">
+        <div class="week-block-label">What you will produce</div>
+        <h3>The activity brief and a Claude-generated mockup</h3>
+        <p>The activity brief follows the standard Harland template. It covers purpose, interaction loop, content requirements, and open questions. Maximum two pages.</p>
+        <p>The mockup is a visual representation of your activity screen, generated with Claude using the Harland design system. Iterated until presentable.</p>
+      </div>
+
+      <div class="week-block">
+        <div class="week-block-label">The critique exchange</div>
+        <h3>Feedback shapes the brief</h3>
+        <p>By Monday of week 4, your critique partner has delivered one page of written feedback on your draft. Your job is not to respond to everything they said. Your job is to identify what sharpens your thinking and apply it to the brief.</p>
+      </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- ═══ WEEK 5 · REVISE + SHOWCASE (PREVIEW) ═══ -->
+    <section class="week-section preview" id="week5">
+      <div class="week-header">
+        <div class="week-big-number">5</div>
+        <div class="week-title-block">
+          <div class="week-status preview">Preview · Unlocks Week 5</div>
+          <h2>Revise + Showcase</h2>
+        </div>
+      </div>
+
+      <div class="week-preview-banner">
+        <div class="week-preview-banner-icon">i</div>
+        <div class="week-preview-banner-text"><strong>Preview content.</strong> This section shows what week 5 will involve. Final guidance may be refined before the week begins.</div>
+      </div>
+
+      <p class="week-focus">Stress-test your brief. Prepare your five-minute showcase presentation. Stand in front of the team and present work you are proud of.</p>
+
+      <div class="week-block">
+        <div class="week-block-label">What you will produce</div>
+        <h3>Your showcase presentation</h3>
+        <p>A five-minute screen-by-screen walkthrough. Maximum five screens, one minute per screen. Every presentation follows the same structure — what the student sees, what the student does, and why it matters.</p>
+      </div>
+
+      <div class="week-block">
+        <div class="week-block-label">The showcase</div>
+        <h3>Four presentations plus Mr. Harris</h3>
+        <p>Each team member presents their completed activity brief and mockup. Five minutes per person. Mr. Harris then presents the full app direction and how all four projects connect. Closing round — each person names one Claude capability they will keep using after the program ends.</p>
+      </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- ═══ STANDUP ═══ -->
+    <section class="section" id="standup">
+      <div class="section-anchor">Section IV</div>
+      <h2 style="color:var(--ink);">Weekly standup</h2>
+      <p>The rhythm that holds this program together. Same time, same format, every week for five weeks.</p>
+
+      <div class="standup-panel" style="margin-top:24px;">
+        <div class="standup-head">
+          <div class="standup-title">Tuesdays · 4:00 pm</div>
+          <div class="standup-when">30 minutes · all team members present</div>
+        </div>
+        <div class="standup-desc">Four segments, structured the same way every week. Predictability is the point.</div>
+
+        <div class="standup-grid">
+          <div class="standup-item">
+            <div class="standup-item-title"><span class="standup-num">i</span>Warm-up</div>
+            <div class="standup-item-body">Week 1 only. Each person shares the most surprising thing they found in their research. Not the most important. The most surprising.</div>
+          </div>
+          <div class="standup-item">
+            <div class="standup-item-title"><span class="standup-num">ii</span>Opening round</div>
+            <div class="standup-item-body">3 min per person. One thing you tried and what you learned from it.</div>
+          </div>
+          <div class="standup-item">
+            <div class="standup-item-title"><span class="standup-num">iii</span>Focused topic</div>
+            <div class="standup-item-body">10 min. One shared question or challenge relevant to the current week.</div>
+          </div>
+          <div class="standup-item">
+            <div class="standup-item-title"><span class="standup-num">iv</span>Next week brief</div>
+            <div class="standup-item-body">5 min. Mr. Harris sets the focus and any new tools or techniques to try.</div>
           </div>
         </div>
-        <div class="card-body">
-          <div class="card-project-label">Your project</div>
-          <div class="card-project-name">SAT Practice Room</div>
-          <div class="card-project-desc">You will design the SAT practice activity for the Harland training app. You know SAT preparation better than anyone on this team. This project is your opportunity to put that knowledge into an activity that will serve every Harland SAT student going forward.</div>
-          <div class="card-meta-row">
-            <div class="card-pill">SAT Prep</div>
-            <div class="card-pill">Practice design</div>
-            <div class="card-pill dark">Your expertise</div>
-          </div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Week 1 focus</div>
-          <div class="card-project-desc">Research the best SAT practice platforms available. Some starting points: Bluebook, Method Learning, Test Innovators, Khan Academy SAT, UWorld SAT, Prepscholar, and Kaplan. Do not stop here — this list is a starting point, not a syllabus. Use Claude to find others, go deeper on the ones you find most interesting, and apply your own professional judgement throughout. Your job is not just to describe these platforms. It is to understand what each one achieves, where each one falls short, and what a Harland practice experience would do that none of them do.</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Your week 1 deliverable</div>
-          <div class="card-project-desc">A comparison table — one row per platform — covering what it does well, what it misses, one thing Harland should take from it, and one thing Harland should avoid. Five to eight platforms minimum. Bring this to Tuesday's standup.</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Week 3 shared task</div>
-          <div class="card-project-desc">Contribute two principles to the team's shared Harland Training Activity standards document. Your principles should draw from what you have learned about how high-performing students practise — what every good Harland activity should demand of a student.</div>
-          <div class="card-divider"></div>
-          <div class="card-critique">
-            <div class="critique-label">Your critiquer</div>
-            <div class="critique-name">Ms. Ruby will review your work in week 2</div>
-          </div>
-          <div class="card-divider"></div>
-          <div class="card-critique">
-            <div class="critique-label">You will review</div>
-            <div class="critique-name">Ms. Ruby's New Family Experience</div>
+
+        <div class="standup-footer">
+          <div class="standup-footer-block">
+            <div class="standup-footer-label">Standup log</div>
+            <div class="standup-footer-text">After each standup Mr. Harris posts five bullet points to the shared Claude Project. What was decided, what was learned, what carries forward. By week 5 this becomes the program's collective memory and a reference for the showcase.</div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Mr. Glen -->
-  <div class="member-panel" id="panel-glen">
-    <div style="padding: 0 20px;">
-      <div class="card fu d3">
-        <div class="card-header">
-          <div class="card-avatar"><span>G</span></div>
-          <div>
-            <div class="card-header-name">Mr. Glen</div>
-            <div class="card-header-role">Head of Competitions + Coaching</div>
+    <div class="divider-line"></div>
+
+    <!-- ═══ CHECK-IN TRACKER ═══ -->
+    <section class="section" id="tracker">
+      <div class="section-anchor">Section V</div>
+      <h2>Your weekly check-in</h2>
+      <p>Use this list each week. When you can check all three boxes, you are where you need to be.</p>
+
+      <div class="tracker" style="margin-top:24px;">
+        <div class="tracker-col">
+          <div class="tracker-week">Week 1</div>
+          <div class="tracker-title">Research</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have researched at least five platforms</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have built a comparison table covering strengths, gaps, and Harland takeaways</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have posted one finding to the LINE group</div>
+        </div>
+        <div class="tracker-col current">
+          <div class="tracker-week">Week 2 · Current</div>
+          <div class="tracker-title">Define</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I can describe my activity in three sentences</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have written a one-page activity outline</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have listed my open questions</div>
+        </div>
+        <div class="tracker-col">
+          <div class="tracker-week">Week 3</div>
+          <div class="tracker-title">Draft</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I can walk someone through my activity in five minutes</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>My draft has content, flow, and structure in place</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have shared my draft with my critique partner</div>
+        </div>
+        <div class="tracker-col">
+          <div class="tracker-week">Week 4</div>
+          <div class="tracker-title">Critique + Brief</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have written critique feedback for my partner's draft</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have used the feedback I received to sharpen my brief</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have generated a Claude mockup using the Harland design system</div>
+        </div>
+        <div class="tracker-col">
+          <div class="tracker-week">Week 5</div>
+          <div class="tracker-title">Revise + Showcase</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I have stress-tested my brief using Claude</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>My showcase walks through five screens in five minutes</div>
+          <div class="tracker-task"><div class="tracker-checkbox"></div>I can explain what the student sees, does, and why it matters</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- ═══ CRITIQUE ═══ -->
+    <section class="section" id="critique">
+      <div class="section-anchor">Section VI</div>
+      <h2>How critique works</h2>
+      <p>In week 4 each of you will review a colleague's draft and give them written feedback. This is where the real pedagogical thinking gets sharpened. Done well it makes the work better, builds trust, and teaches you to think critically about your own project by examining someone else's.</p>
+
+      <div class="critique-grid" style="margin-top:28px;">
+        <div>
+          <div class="critique-headline">You are not there to approve. You are there to improve.</div>
+
+          <div class="pair-block">
+            <div class="card-eyebrow" style="margin-bottom:10px;">Critique pairings</div>
+            <div class="pair-row"><span class="pair-name">Ms. M</span><span class="pair-arrow">reviews</span><span>Mr. Glen's Vocabulary Journal</span></div>
+            <div class="pair-row"><span class="pair-name">Mr. Glen</span><span class="pair-arrow">reviews</span><span>Ms. M's K–3 Reading Room</span></div>
+            <div class="pair-row"><span class="pair-name">Mr. Judkins</span><span class="pair-arrow">reviews</span><span>Ms. Ruby's New Family Experience</span></div>
+            <div class="pair-row"><span class="pair-name">Ms. Ruby</span><span class="pair-arrow">reviews</span><span>Mr. Judkins' SAT Practice Room</span></div>
+          </div>
+
+          <div style="background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-top:16px;">
+            <div class="card-eyebrow">Format</div>
+            <p style="font-size:14px;line-height:1.65;margin-bottom:0;">Written. Shared with your colleague before the Tuesday standup of week 4. No more than one page. Be direct. Vague praise is not useful to anyone.</p>
           </div>
         </div>
-        <div class="card-body">
-          <div class="card-project-label">Your project</div>
-          <div class="card-project-name">Vocabulary Journal</div>
-          <div class="card-project-desc">You already have a vocabulary methodology — your spreadsheet is the foundation. This project takes that thinking and turns it into a real in-app activity. You will design the interaction, build out a sample word bank, and produce an activity brief that puts your pedagogical instincts into a buildable spec.</div>
-          <div class="card-meta-row">
-            <div class="card-pill">Vocabulary acquisition</div>
-            <div class="card-pill">Spaced repetition</div>
-            <div class="card-pill dark">Your methodology</div>
+        <div>
+          <div class="card-eyebrow" style="color:var(--gold);">What to look for</div>
+          <ul class="look-for" style="margin-top:10px;">
+            <li><strong>Clarity.</strong> Can you explain what the activity is in one sentence after reading the draft? If not, that is the first thing to flag.</li>
+            <li><strong>Assumptions.</strong> What is being taken for granted? What would a student, parent, or teacher challenge?</li>
+            <li><strong>Strengths.</strong> What is the single best idea in the draft? Name it specifically.</li>
+            <li><strong>One question.</strong> The single most important question the draft has not yet answered.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- ═══ INDIVIDUAL PROJECTS ═══ -->
+    <section class="section" id="projects">
+      <div class="section-anchor">Section VII</div>
+      <h2>Your project</h2>
+      <p>Every project was chosen for the person assigned to it. Select your tab.</p>
+
+      <div class="member-nav" style="margin-top:28px;">
+        <div class="member-tab active" onclick="showMember('msm', event)">Ms. M</div>
+        <div class="member-tab" onclick="showMember('judkins', event)">Mr. Judkins</div>
+        <div class="member-tab" onclick="showMember('glen', event)">Mr. Glen</div>
+        <div class="member-tab" onclick="showMember('ruby', event)">Ms. Ruby</div>
+        <div class="member-tab" onclick="showMember('phil', event)">Mr. Harris</div>
+      </div>
+
+      <!-- Ms. M -->
+      <div class="member-panel active" id="panel-msm">
+        <div class="member-layout">
+          <div class="member-header-card">
+            <div class="member-avatar">M</div>
+            <div class="member-name">Ms. M</div>
+            <div class="member-role">Head Teacher</div>
+            <div class="member-project-label">Your project</div>
+            <div class="member-project-name">K–3 Reading Room</div>
+            <div class="member-pills">
+              <div class="member-pill">Grades K–3</div>
+              <div class="member-pill">Leveled readers</div>
+              <div class="member-pill">Comprehension</div>
+            </div>
           </div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Week 1 focus</div>
-          <div class="card-project-desc">Start by auditing your existing vocabulary spreadsheet — articulate the methodology behind it clearly. Then research the best vocabulary learning tools and approaches available. Some starting points: Anki, Vocabulary.com, Quizlet, Memrise, Wordly Wise 3000, Magoosh Vocabulary, and the Frayer Model. Do not stop here — use Claude to find others and go deeper on what interests you most. The question throughout is: what does each approach achieve, where does it fall short, and where does your methodology agree or differ with what the research says?</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Your week 1 deliverable</div>
-          <div class="card-project-desc">A comparison table — one row per platform or methodology — covering what it does well, what it misses, one thing Harland should take from it, and one thing Harland should avoid. Five to eight entries minimum. Bring this to Tuesday's standup.</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Week 3 shared task</div>
-          <div class="card-project-desc">Contribute two principles to the team's shared Harland Training Activity standards document. Your principles should draw from vocabulary acquisition research — what every good Harland activity should do to make learning stick.</div>
-          <div class="card-divider"></div>
-          <div class="card-critique">
-            <div class="critique-label">Your critiquer</div>
-            <div class="critique-name">Ms. M will review your work in week 2</div>
-          </div>
-          <div class="card-divider"></div>
-          <div class="card-critique">
-            <div class="critique-label">You will review</div>
-            <div class="critique-name">Ms. M's K–3 Reading Room</div>
+          <div class="member-content">
+            <div class="member-section">
+              <div class="member-section-label">The assignment</div>
+              <p>You will design the reading activity experience for our youngest students. Your job is not to replicate what already exists. It is to research the best early reading platforms available, identify what they achieve and where they fall short, and design what a Harland reading experience would look like if built from scratch with our students in mind. Your teaching experience is the lens through which all of this gets filtered.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Week 1 focus</div>
+              <p>Research the best early reading platforms available. Some starting points: Raz-Kids, Reading Eggs, Lexia Core5, Epic!, and Starfall. Do not stop here. Use Claude to find others and go deeper on the ones that interest you most. Your job is not to summarize what these platforms do. It is to understand what they achieve, where they fall short, and what a Harland reading experience would do that none of them do.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Your week 1 deliverable</div>
+              <p>A comparison table with one row per platform, covering what it does well, what it misses, one thing Harland should take from it, and one thing Harland should avoid. Five to eight platforms minimum. Bring this to Tuesday's standup.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Your week 2 deliverable</div>
+              <p>A one-page activity outline covering five things: (1) your activity name, (2) what it is in one sentence, (3) what the student does, in three to five sentences describing the experience step by step, (4) why this works for Harland students, what problem it solves and what makes it different from the platforms you researched, and (5) your open questions. Bring this to the week 3 standup. Form is up to you. Google Doc, Claude chat, whatever works.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Critique pairings</div>
+              <div class="member-critique-pair">
+                <div class="critique-box">
+                  <div class="critique-box-label">Your critiquer</div>
+                  <div class="critique-box-name">Mr. Glen will review your work</div>
+                </div>
+                <div class="critique-box">
+                  <div class="critique-box-label">You will review</div>
+                  <div class="critique-box-name">Mr. Glen's Vocabulary Journal</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Ms. Ruby -->
-  <div class="member-panel" id="panel-ruby">
-    <div style="padding: 0 20px;">
-      <div class="card fu d3">
-        <div class="card-header">
-          <div class="card-avatar"><span>R</span></div>
-          <div>
-            <div class="card-header-name">Ms. Ruby</div>
-            <div class="card-header-role">Admin Manager</div>
+      <!-- Mr. Judkins -->
+      <div class="member-panel" id="panel-judkins">
+        <div class="member-layout">
+          <div class="member-header-card">
+            <div class="member-avatar">J</div>
+            <div class="member-name">Mr. Judkins</div>
+            <div class="member-role">Head of STEM + Test Prep</div>
+            <div class="member-project-label">Your project</div>
+            <div class="member-project-name">SAT Practice Room</div>
+            <div class="member-pills">
+              <div class="member-pill">SAT Prep</div>
+              <div class="member-pill">Practice design</div>
+              <div class="member-pill dark">Your expertise</div>
+            </div>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="card-project-label">Your project</div>
-          <div class="card-project-name">The New Family Experience</div>
-          <div class="card-project-desc">You know better than anyone where new parents and students get confused, what questions they ask, and where the current experience falls short. This project takes that knowledge and turns it into something every new Harland family will experience — a complete, designed journey from enrolment confirmation through to the end of their first lesson.</div>
-          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#7A5810;background:var(--gold-pale);border:1px solid rgba(201,168,76,0.2);border-radius:8px;padding:8px 12px;margin-top:10px;line-height:1.5;">Your project is intentionally broader than the others. It draws on operational knowledge rather than pedagogical research — which means you are the expert in the room and no one else can do what you are doing.</div>
-          <div class="card-meta-row">
-            <div class="card-pill">New families</div>
-            <div class="card-pill">Journey design</div>
-            <div class="card-pill">Communications</div>
-            <div class="card-pill dark">Your knowledge</div>
-          </div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Your five areas of work</div>
-          <div class="card-project-desc" style="margin-bottom:10px;"><strong style="color:var(--ink);font-weight:500;">1. Journey map.</strong> Document every single thing that happens to a new family between signing up and completing their first lesson. Every message, every document, every question. Do not design yet — just map what currently happens and where the gaps are.</div>
-          <div class="card-project-desc" style="margin-bottom:10px;"><strong style="color:var(--ink);font-weight:500;">2. Communication sequence.</strong> Design the ideal sequence of messages a new family should receive. What arrives the day they enrol? The day before their first lesson? After their first lesson? What channel — LINE, email, or app notification? Write the actual copy for each touchpoint.</div>
-          <div class="card-project-desc" style="margin-bottom:10px;"><strong style="color:var(--ink);font-weight:500;">3. Training app introduction.</strong> Write a clear, friendly introduction to the Harland training app — what it is, what they will find inside, how to get started. Then design how this would be delivered inside the app itself, screen by screen.</div>
-          <div class="card-project-desc" style="margin-bottom:10px;"><strong style="color:var(--ink);font-weight:500;">4. FAQ.</strong> The top ten questions parents ask and the top ten questions students ask. Clear, warm answers to each. These will live in the app and be used by Student Coordinators.</div>
-          <div class="card-project-desc"><strong style="color:var(--ink);font-weight:500;">5. Coordinator handoff brief.</strong> When a new family is assigned to a Student Coordinator, what does that coordinator need to know immediately? Design the one-page summary — what it contains, how it is formatted, when it is delivered.</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Week 1 focus</div>
-          <div class="card-project-desc">Begin with what you already know. Map the current new parent and student journey from first contact through first lesson. Where do questions come up? Where does confusion happen? What do people ask that they should not need to ask? Document this before researching what others do. Your operational experience is the most valuable input here.</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Your week 1 deliverable</div>
-          <div class="card-project-desc">A written journey map of the current new family experience — every touchpoint, every common question, every gap you have observed. Bring this to Tuesday's standup.</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">Week 3 shared task</div>
-          <div class="card-project-desc">Contribute two principles to the team's shared Harland Training Activity standards document. Your principles should draw from what you know about how new students and parents experience the app — what every good Harland activity should feel like to a family encountering it for the first time.</div>
-          <div class="card-divider"></div>
-          <div class="card-critique">
-            <div class="critique-label">Your critiquer</div>
-            <div class="critique-name">Mr. Judkins will review your work in week 2</div>
-          </div>
-          <div class="card-divider"></div>
-          <div class="card-critique">
-            <div class="critique-label">You will review</div>
-            <div class="critique-name">Mr. Judkins' SAT Practice Room</div>
+          <div class="member-content">
+            <div class="member-section">
+              <div class="member-section-label">The assignment</div>
+              <p>You will design the SAT practice activity for the Harland training app. You know SAT preparation better than anyone on this team. This project is your opportunity to put that knowledge into an activity that will serve every Harland SAT student going forward.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Week 1 focus</div>
+              <p>Research the best SAT practice platforms available. Some starting points: Bluebook, Method Learning, Test Innovators, Khan Academy SAT, UWorld SAT, Prepscholar, and Kaplan. Do not stop here. This list is a starting point, not a syllabus. Use Claude to find others, go deeper on the ones you find most interesting, and apply your own professional judgment throughout. Your job is not just to describe these platforms. It is to understand what each one achieves, where each one falls short, and what a Harland practice experience would do that none of them do.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Your week 1 deliverable</div>
+              <p>A comparison table with one row per platform, covering what it does well, what it misses, one thing Harland should take from it, and one thing Harland should avoid. Five to eight platforms minimum. Bring this to Tuesday's standup.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Your week 2 deliverable</div>
+              <p>A one-page activity outline covering five things: (1) your activity name, (2) what it is in one sentence, (3) what the student does, in three to five sentences describing the experience step by step, (4) why this works for Harland students, what problem it solves and what makes it different from the platforms you researched, and (5) your open questions. Bring this to the week 3 standup. Form is up to you. Google Doc, Claude chat, whatever works.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Critique pairings</div>
+              <div class="member-critique-pair">
+                <div class="critique-box">
+                  <div class="critique-box-label">Your critiquer</div>
+                  <div class="critique-box-name">Ms. Ruby will review your work</div>
+                </div>
+                <div class="critique-box">
+                  <div class="critique-box-label">You will review</div>
+                  <div class="critique-box-name">Ms. Ruby's New Family Experience</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div style="height: 28px;"></div>
-
-  <!-- Mr. Harris -->
-  <div class="member-panel" id="panel-phil">
-    <div style="padding: 0 20px;">
-      <div class="card fu d3">
-        <div class="card-header">
-          <div class="card-avatar" style="background:linear-gradient(135deg,#A07820,var(--gold-light) 50%,#A07820);"><span style="color:var(--obsidian);">PH</span></div>
-          <div>
-            <div class="card-header-name">Mr. Harris</div>
-            <div class="card-header-role">Principal · Director</div>
+      <!-- Mr. Glen -->
+      <div class="member-panel" id="panel-glen">
+        <div class="member-layout">
+          <div class="member-header-card">
+            <div class="member-avatar">G</div>
+            <div class="member-name">Mr. Glen</div>
+            <div class="member-role">Head of Competitions + Coaching</div>
+            <div class="member-project-label">Your project</div>
+            <div class="member-project-name">Vocabulary Journal</div>
+            <div class="member-pills">
+              <div class="member-pill">Vocabulary acquisition</div>
+              <div class="member-pill">Spaced repetition</div>
+              <div class="member-pill dark">Your methodology</div>
+            </div>
           </div>
-        </div>
-        <div class="card-body">
-          <div class="card-project-label">My role in this programme</div>
-          <div class="card-project-name">Programme Lead</div>
-          <div class="card-project-desc">I am not running this programme from the outside. I am in it with you. While each of you builds your activity, I am continuing to lead the Harland website and app development — and I will be at every standup, working through the same tools and the same questions you are.</div>
-          <div class="card-meta-row">
-            <div class="card-pill">Website development</div>
-            <div class="card-pill">App oversight</div>
-            <div class="card-pill dark">Programme lead</div>
-          </div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">What I am building</div>
-          <div class="card-project-desc">My focus during this programme is the Harland website and the overall app architecture — ensuring that what each of you designs can actually be built and integrated. At the showcase I will present the full picture of where the app is heading and how your four projects fit into it.</div>
-          <div class="card-divider"></div>
-          <div class="card-project-label">My commitment to you</div>
-          <div class="card-project-desc">I will review your work each week and give you direct, specific feedback. I will not tell you something is good if it can be better. After every standup I will post five bullet points to the shared Claude Project — what we decided, what we learned, what carries forward. In week 3 I will synthesise your principles contributions into a shared standard. And I will make sure that what you produce at the end of this programme is used — not filed away.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div style="height: 28px;"></div>
-  <div class="divider"></div>
-
-  <!-- Deliverables -->
-  <div class="section fu d4">
-    <div class="section-label">What you will produce</div>
-    <div class="card">
-      <div class="card-body">
-        <div class="deliverable-item">
-          <div class="del-num"><span>1</span></div>
-          <div class="del-content">
-            <div class="del-title">Activity Brief</div>
-            <div class="del-desc">A structured document following the standard Harland template — covering purpose, interaction loop, content requirements, and open questions. Maximum two pages. Template available in the shared Claude Project. Note: Ms. Ruby's equivalent is a New Family Experience Pack covering journey map, communications sequence, FAQ, app introduction, and coordinator handoff brief.</div>
-          </div>
-        </div>
-        <div class="deliverable-item">
-          <div class="del-num"><span>2</span></div>
-          <div class="del-content">
-            <div class="del-title">Claude-Generated Mockup</div>
-            <div class="del-desc">A visual representation of your activity screen, generated with Claude using the Harland design system. Iterated until presentable. Guidance on how to generate this will be provided in week 4.</div>
-          </div>
-        </div>
-        <div class="deliverable-item">
-          <div class="del-num"><span>3</span></div>
-          <div class="del-content">
-            <div class="del-title">Showcase Presentation</div>
-            <div class="del-desc">A five-minute screen-by-screen walkthrough at the Week 5 showcase. Maximum five screens, one minute per screen. Every presentation follows the same structure — what the student sees, what the student does, and why it matters.</div>
+          <div class="member-content">
+            <div class="member-section">
+              <div class="member-section-label">The assignment</div>
+              <p>You already have a vocabulary methodology. Your spreadsheet is the foundation. This project takes that thinking and turns it into a real in-app activity. You will design the interaction, build out a sample word bank, and produce an activity brief that puts your pedagogical instincts into a buildable spec.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Week 1 focus</div>
+              <p>Start by auditing your existing vocabulary spreadsheet. Articulate the methodology behind it clearly. Then research the best vocabulary learning tools and approaches available. Some starting points: Anki, Vocabulary.com, Quizlet, Memrise, Wordly Wise 3000, Magoosh Vocabulary, and the Frayer Model. Do not stop here. Use Claude to find others and go deeper on what interests you most. The question throughout is: what does each approach achieve, where does it fall short, and where does your methodology agree or differ with what the research says?</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Your week 1 deliverable</div>
+              <p>A comparison table with one row per platform or methodology, covering what it does well, what it misses, one thing Harland should take from it, and one thing Harland should avoid. Five to eight entries minimum. Bring this to Tuesday's standup.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Your week 2 deliverable</div>
+              <p>A one-page activity outline covering five things: (1) your activity name, (2) what it is in one sentence, (3) what the student does, in three to five sentences describing the experience step by step, (4) why this works for Harland students, what problem it solves and what makes it different from the platforms you researched, and (5) your open questions. Bring this to the week 3 standup. Form is up to you. Google Doc, Claude chat, whatever works.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Critique pairings</div>
+              <div class="member-critique-pair">
+                <div class="critique-box">
+                  <div class="critique-box-label">Your critiquer</div>
+                  <div class="critique-box-name">Ms. M will review your work</div>
+                </div>
+                <div class="critique-box">
+                  <div class="critique-box-label">You will review</div>
+                  <div class="critique-box-name">Ms. M's K–3 Reading Room</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Showcase banner -->
-  <div class="showcase-banner fu d5">
-    <div class="showcase-label">Week 5 · Final event</div>
-    <div class="showcase-title">Team Showcase</div>
-    <div class="showcase-desc">Each team member presents their completed activity brief and mockup to the full team. Five minutes per person. The output of this programme goes directly into the Harland app development pipeline.</div>
-    <div style="margin-top:14px;border-top:1px solid rgba(13,13,15,0.15);padding-top:14px;">
-      <div style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(13,13,15,0.5);margin-bottom:8px;">Showcase format</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(13,13,15,0.6);line-height:1.7;">
-        <div style="margin-bottom:4px;"><span style="color:rgba(13,13,15,0.5);margin-right:6px;">01</span>Four presentations — 5 minutes each, screen by screen.</div>
-        <div style="margin-bottom:4px;"><span style="color:rgba(13,13,15,0.5);margin-right:6px;">02</span>Mr. Harris presents the app direction and how all four projects connect.</div>
-        <div><span style="color:rgba(13,13,15,0.5);margin-right:6px;">03</span>Closing round — each person names one Claude capability they will keep using after the programme ends.</div>
+      <!-- Ms. Ruby -->
+      <div class="member-panel" id="panel-ruby">
+        <div class="member-layout">
+          <div class="member-header-card">
+            <div class="member-avatar">R</div>
+            <div class="member-name">Ms. Ruby</div>
+            <div class="member-role">Admin Manager</div>
+            <div class="member-project-label">Your project</div>
+            <div class="member-project-name">New Family Experience</div>
+            <div class="member-pills">
+              <div class="member-pill">New families</div>
+              <div class="member-pill">Journey design</div>
+              <div class="member-pill">Communications</div>
+              <div class="member-pill dark">Your knowledge</div>
+            </div>
+          </div>
+          <div class="member-content">
+            <div class="member-section">
+              <div class="member-section-label">The assignment</div>
+              <p>You know better than anyone where new parents and students get confused, what questions they ask, and where the current experience falls short. This project takes that knowledge and turns it into something every new Harland family will experience. A complete, designed journey from enrollment confirmation through to the end of their first lesson.</p>
+              <div style="background:var(--gold-pale);border:1px solid rgba(201,168,76,0.25);border-radius:10px;padding:12px 16px;margin-top:14px;font-size:13px;color:#7A5810;line-height:1.6;">Your project is intentionally broader than the others. It draws on operational knowledge rather than pedagogical research. That means you are the expert in the room and no one else can do what you are doing.</div>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Your five areas of work</div>
+              <ul class="ruby-sub-list">
+                <li><strong>1. Journey map</strong>Document every single thing that happens to a new family between signing up and completing their first lesson. Every message, every document, every question. Do not design yet. Just map what currently happens and where the gaps are.</li>
+                <li><strong>2. Communication sequence</strong>Design the ideal sequence of messages a new family should receive. What arrives the day they enroll? The day before their first lesson? After their first lesson? What channel. LINE, email, or app notification? Write the actual copy for each touchpoint.</li>
+                <li><strong>3. Training app introduction</strong>Write a clear, friendly introduction to the Harland training app. What it is, what they will find inside, how to get started. Then design how this would be delivered inside the app itself, screen by screen.</li>
+                <li><strong>4. FAQ</strong>The top ten questions parents ask and the top ten questions students ask. Clear, warm answers to each. These will live in the app and be used by Student Coordinators.</li>
+                <li><strong>5. Coordinator handoff brief</strong>When a new family is assigned to a Student Coordinator, what does that coordinator need to know immediately? Design the one-page summary. What it contains, how it is formatted, when it is delivered.</li>
+              </ul>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Week 1 focus</div>
+              <p>Begin with what you already know. Map the current new parent and student journey from first contact through first lesson. Where do questions come up? Where does confusion happen? What do people ask that they should not need to ask? Document this before researching what others do. Your operational experience is the most valuable input here.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Your week 1 deliverable</div>
+              <p>A written journey map of the current new family experience. Every touchpoint, every common question, every gap you have observed. Bring this to Tuesday's standup.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Your week 2 deliverable</div>
+              <p>A one-page outline of the new family experience you want to design, covering five things: (1) your working title for the experience, (2) the shape of it in one sentence, (3) the key moments a new family encounters, from enrollment through first lesson, (4) what problem each moment solves and what makes this different from what happens today, and (5) your open questions. Bring this to the week 3 standup. Form is up to you. Google Doc, Claude chat, whatever works.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">Critique pairings</div>
+              <div class="member-critique-pair">
+                <div class="critique-box">
+                  <div class="critique-box-label">Your critiquer</div>
+                  <div class="critique-box-name">Mr. Judkins will review your work</div>
+                </div>
+                <div class="critique-box">
+                  <div class="critique-box-label">You will review</div>
+                  <div class="critique-box-name">Mr. Judkins' SAT Practice Room</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="divider"></div>
-
-  <!-- Getting Started -->
-  <div class="section fu d5">
-    <div class="section-label">Getting started this week</div>
-    <div class="card">
-      <div class="card-body">
-        <div class="step-item">
-          <div class="step-dot"></div>
-          <div class="step-text"><strong>Join the Harland Claude Project.</strong> You will receive an invite link to your email today. This is where all programme materials live — design system, activity brief template, and weekly task briefs. Accept the invite and spend five minutes reading what is there before you start your research.</div>
-        </div>
-        <div class="step-item">
-          <div class="step-dot"></div>
-          <div class="step-text"><strong>Join the programme LINE group.</strong> You will be added today. This is where quick questions, findings, and wins get shared during the week. It is informal — one observation before Tuesday is all that is expected.</div>
-        </div>
-        <div class="step-item">
-          <div class="step-dot"></div>
-          <div class="step-text"><strong>Start your research with Claude.</strong> Open Claude and paste something like this to begin: <span style="display:block;background:var(--cream);border-left:2px solid var(--gold);padding:8px 10px;margin-top:8px;border-radius:0 6px 6px 0;font-size:11px;color:var(--slate);font-style:italic;line-height:1.6;">"I am researching the best [vocabulary learning / early reading / SAT practice] platforms available. For each one, help me understand what it does well, where it falls short, and what a premium tutoring company could do better. Start with [platform name] and I will ask you to continue from there."</span></div>
-        </div>
-        <div class="step-item">
-          <div class="step-dot"></div>
-          <div class="step-text"><strong>Post one finding to LINE before Tuesday.</strong> One thing you learned, one question you have, or one thing that surprised you. No formatting required.</div>
-        </div>
-        <div class="step-item">
-          <div class="step-dot"></div>
-          <div class="step-text"><strong>Come to Tuesday's standup with your comparison table.</strong> Three minutes per person. What did you find? What surprised you? What does Harland do better? The work you produce here feeds directly into the Harland training app — these briefs will be handed to our developer as part of the Phase 1 build.</div>
+      <!-- Mr. Harris -->
+      <div class="member-panel" id="panel-phil">
+        <div class="member-layout">
+          <div class="member-header-card">
+            <div class="member-avatar" style="background:var(--obsidian); color:var(--gold-light);">PH</div>
+            <div class="member-name">Mr. Harris</div>
+            <div class="member-role">Principal · Director</div>
+            <div class="member-project-label">My role</div>
+            <div class="member-project-name">Program Lead</div>
+            <div class="member-pills">
+              <div class="member-pill">Website development</div>
+              <div class="member-pill">App oversight</div>
+              <div class="member-pill dark">Program lead</div>
+            </div>
+          </div>
+          <div class="member-content">
+            <div class="member-section">
+              <div class="member-section-label">My role in this program</div>
+              <p>I am not running this program from the outside. I am in it with you. While each of you builds your activity, I am continuing to lead the Harland website and app development. I will be at every standup, working through the same tools and the same questions you are.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">What I am building</div>
+              <p>My focus during this program is the Harland website and the overall app architecture. My job is to ensure that what each of you designs can actually be built and integrated. At the showcase I will present the full picture of where the app is heading and how your four projects fit into it.</p>
+            </div>
+            <div class="member-section">
+              <div class="member-section-label">My commitment to you</div>
+              <p>I will review your work each week and give you direct, specific feedback. I will not tell you something is good if it can be better. After every standup I will post five bullet points to the shared Claude Project. What we decided, what we learned, what carries forward. In week 3 I will synthesize your principles contributions into a shared standard. And I will make sure that what you produce at the end of this program is used, not filed away.</p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- Footer -->
-  <div class="doc-footer fu d6">
-    <div class="footer-logo">Harland Education</div>
-    <div class="footer-sub">Internal · April 2026 · Taipei</div>
-  </div>
+    <div class="divider-line"></div>
+
+    <!-- ═══ DELIVERABLES ═══ -->
+    <section class="section" id="deliverables">
+      <div class="section-anchor">Section VIII</div>
+      <h2>What you will produce</h2>
+      <p>Three deliverables. All shown at the week 5 showcase.</p>
+
+      <div class="deliv-row" style="margin-top:28px;">
+        <div class="deliv-card">
+          <div class="deliv-number">i</div>
+          <div class="deliv-title">Activity Brief</div>
+          <div class="deliv-desc">A structured document following the standard Harland template. It covers purpose, interaction loop, content requirements, and open questions. Maximum two pages. Template available in the shared Claude Project. Note: Ms. Ruby's equivalent is a New Family Experience Pack covering journey map, communications sequence, FAQ, app introduction, and coordinator handoff brief.</div>
+        </div>
+        <div class="deliv-card">
+          <div class="deliv-number">ii</div>
+          <div class="deliv-title">Claude-Generated Mockup</div>
+          <div class="deliv-desc">A visual representation of your activity screen, generated with Claude using the Harland design system. Iterated until presentable. Guidance on how to generate this will be provided in week 4.</div>
+        </div>
+        <div class="deliv-card">
+          <div class="deliv-number">iii</div>
+          <div class="deliv-title">Showcase Presentation</div>
+          <div class="deliv-desc">A five-minute screen-by-screen walkthrough at the Week 5 showcase. Maximum five screens, one minute per screen. Every presentation follows the same structure. What the student sees, what the student does, and why it matters.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider-line"></div>
+
+    <!-- ═══ SHOWCASE ═══ -->
+    <section class="section" id="showcase">
+      <div class="section-anchor">Section IX</div>
+
+      <div class="showcase-panel">
+        <div class="showcase-eyebrow">Week 5 · Final event</div>
+        <div class="showcase-title">Team Showcase</div>
+        <div class="showcase-lead">Each team member presents their completed activity brief and mockup to the full team. Five minutes per person. The output of this program goes directly into the Harland app development pipeline.</div>
+
+        <div class="showcase-section">
+          <div class="showcase-sec-label">What makes a strong presentation</div>
+          <ul class="showcase-list">
+            <li><span class="num">i</span><strong>Clarity.</strong> Your activity is described specifically enough that everyone in the room understands what it is and what it does.</li>
+            <li><span class="num">ii</span><strong>Pedagogical thinking.</strong> Your design reflects why this activity works for students, not just how it looks.</li>
+            <li><span class="num">iii</span><strong>Buildability.</strong> A developer watching could start building from what you present, without needing to interview you afterward.</li>
+          </ul>
+        </div>
+
+        <div class="showcase-section">
+          <div class="showcase-sec-label">Showcase format</div>
+          <ul class="showcase-list">
+            <li><span class="num">i</span>Four presentations. 5 minutes each, screen by screen.</li>
+            <li><span class="num">ii</span>Mr. Harris presents the app direction and how all four projects connect.</li>
+            <li><span class="num">iii</span>Closing round. Each person names one Claude capability they will keep using after the program ends.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CLOSING ═══ -->
+    <section class="closing">
+      <div class="closing-eyebrow">Five weeks from now</div>
+      <div class="closing-headline">You will stand in front of the team and present work you are proud of.</div>
+      <div class="closing-sub">Work that will shape what Harland becomes. Work only you could have done.</div>
+      <div class="closing-body">Your first job this week is simple. Start. Open Claude. Ask a question. See what happens. Everything else follows from there.</div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-logo">Harland Education</div>
+      <div class="footer-sub">Internal · April 2026 · Taipei</div>
+    </footer>
+
+  </main>
 
 </div>
 
 <script>
-function showMember(id) {
-  document.querySelectorAll('.member-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.member-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('active');
-  event.target.classList.add('active');
-}
+  // Member tab switching
+  function showMember(id, event) {
+    document.querySelectorAll('.member-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.member-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    if (event) event.currentTarget.classList.add('active');
+  }
+
+  // Smooth scroll + active sidebar state
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  // Active sidebar item on scroll
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const sectionIds = ['week1','week2','week3','week4','week5','overview','gain','structure','standup','tracker','critique','projects','deliverables','showcase'];
+
+  function updateActiveNav() {
+    let currentSection = sectionIds[0];
+    const scrollPos = window.scrollY + 200;
+
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.offsetTop <= scrollPos) {
+        currentSection = id;
+      }
+    });
+
+    navItems.forEach((item, idx) => {
+      item.classList.remove('active');
+      if (sectionIds[idx] === currentSection) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav);
+  window.addEventListener('load', updateActiveNav);
 </script>
+
 </body>
 </html>
